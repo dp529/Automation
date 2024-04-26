@@ -1,0 +1,9 @@
+openssh-server
+git
+python3
+build-essential
+curl
+wget
+htop
+ufw
+logrotate
