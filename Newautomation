@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Function to generate a random string of specified length
+generate_random_string() {
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w "$1" | head -n 1
+}
+
+# Check if the user already exists
+username="randomuser"
+if id "$username" &>/dev/null; then
+    echo "User '$username' already exists."
+else
+    # Generate a random username and password
+    random_username=$(generate_random_string 8)
+    random_password=$(generate_random_string 12)
+
+    # Create the user with the random username and password
+    sudo useradd -m -s /bin/bash "$random_username"
+    echo "$random_username:$random_password" | sudo chpasswd
+
+    echo "User '$random_username' created with password '$random_password'."
+fi
